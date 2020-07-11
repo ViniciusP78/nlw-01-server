@@ -1,9 +1,18 @@
 import express from 'express';
 
-const routes = express.Router(); // desacopla as rotas do arquivo principal para um outro arquivo
+import PointsController from './controllers/PointsController';
+import ItemsController from './controllers/ItemsController';
 
-routes.get('/', (request, response) => { // cria uma rota // 
-    return response.json({message: 'Hello World'});
-});
+const routes = express.Router(); // desacopla as rotas do arquivo principal para um outro arquivo
+const pointsController = new PointsController();
+const itemsController = new ItemsController();
+
+
+routes.get('/items', itemsController.index);
+routes.post('/points', pointsController.create);
+routes.get('/points', pointsController.index);
+routes.get('/points/:id', pointsController.show);
+
+// index, show, create, update, delete
 
 export default routes;
